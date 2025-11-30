@@ -1,2 +1,479 @@
 # Numpy
 Class Work and Assignment-Numpy
+[Numpy_task_1.ipynb](https://github.com/user-attachments/files/23840362/Numpy_task_1.ipynb)
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "id": "defdad4b",
+   "metadata": {},
+   "source": [
+    "## **Al-Khair Institute of Technology**\n",
+    "## **Assignment no: 4**\n",
+    "## **Numpy_Basics**\n",
+    "## **Prepared By: Sheikh Saqib**\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "1816a13b",
+   "metadata": {},
+   "source": [
+    "**Q1) Create an (m × n) matrix with given conditions + extract rows & 3rd column + justify 1D output**\n",
+    "**Conditions you must satisfy:**\n",
+    "**Each row is sorted (non-decreasing)**\n",
+    "\n",
+    "**First element of every row > last element of previous row**\n",
+    "**This means the entire matrix acts like a sorted list spread across rows.**"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "2b88ea51",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Matrix:\n",
+      " [[ 1  3  5  7]\n",
+      " [10 12 14 16]\n",
+      " [20 22 24 26]]\n",
+      "\n",
+      "Extracted third column: [ 5 14 24]\n",
+      "Shape: (3,)\n"
+     ]
+    }
+   ],
+   "source": [
+    "#Code + Explanation\n",
+    "import numpy as np\n",
+    "\n",
+    "# Creating a matrix that satisfies both conditions\n",
+    "# Example: 3x4 matrix\n",
+    "matrix = np.array([\n",
+    "    [1,  3,  5,  7],      # sorted row\n",
+    "    [10, 12, 14, 16],     # first element 10 > last row's last value 7\n",
+    "    [20, 22, 24, 26]      # same rule\n",
+    "])\n",
+    "\n",
+    "print(\"Matrix:\\n\", matrix)\n",
+    "\n",
+    "# Extract all rows, only the 3rd column (index 2)\n",
+    "third_col = matrix[:, 2]\n",
+    "print(\"\\nExtracted third column:\", third_col)\n",
+    "print(\"Shape:\", third_col.shape)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "0c2af605",
+   "metadata": {},
+   "source": [
+    "**Why the Output Becomes 1D?**\n",
+    "\n",
+    "**Even though matrix is 2D, the slicing:**"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "id": "028981fe",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "array([[ 5],\n",
+       "       [14],\n",
+       "       [24]])"
+      ]
+     },
+     "execution_count": 4,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "matrix[:, 2]\n",
+    "\n",
+    "# selects:\n",
+    "# All rows\n",
+    "# One single column\n",
+    "\n",
+    "# Mathematically, one column is no longer a 2D structure unless you explicitly keep the dimension.\n",
+    "# So NumPy removes the dimension automatically, giving you a shape:\n",
+    "\n",
+    "(3,)\n",
+    "\n",
+    "# Not:\n",
+    "\n",
+    "(3,1)\n",
+    "\n",
+    "# Because NumPy removes any dimension where only 1 column is selected using:.\n",
+    "# This is called “dimension squeezing.”\n",
+    "\n",
+    "# If you WANT a 2D column, you must force it:\n",
+    "\n",
+    "matrix[:, 2:3]"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "8bd39851",
+   "metadata": {},
+   "source": [
+    "**Q2) Two-Sum Problem**\n",
+    "\n",
+    "**Task: Find two indices whose values add up to a target.**"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "6830762d",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Indices: 0 1\n"
+     ]
+    }
+   ],
+   "source": [
+    "\n",
+    "import numpy as np\n",
+    "\n",
+    "nums = np.array([2, 7, 11, 15])\n",
+    "target = 9\n",
+    "\n",
+    "# Dictionary-based solution (efficient)\n",
+    "seen = {}\n",
+    "for i, num in enumerate(nums):\n",
+    "    diff = target - num\n",
+    "    if diff in seen:\n",
+    "        print(\"Indices:\", seen[diff], i)\n",
+    "        break\n",
+    "    seen[num] = i\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "bd9e968c",
+   "metadata": {},
+   "source": [
+    "Why this works?\n",
+    "\n",
+    "•\tWe store numbers in a dictionary\n",
+    "\n",
+    "•\tFor each number, we check if the \"other number\" (target – current) exists\n",
+    "\n",
+    "•\tGuaranteed 1 solution\n",
+    "\n",
+    "•\tCannot use same index twice — this method prevents that\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "4801ca9f",
+   "metadata": {},
+   "source": [
+    "**Q3) Create 1D integer array & print its properties**"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "3447c222",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Array: [0 1 2 3 4 5 6 7 8 9]\n",
+      "dtype: int64\n",
+      "shape: (10,)\n",
+      "size: 10\n",
+      "itemsize: 8\n",
+      "nbytes: 80\n"
+     ]
+    }
+   ],
+   "source": [
+    "\n",
+    "import numpy as np\n",
+    "\n",
+    "arr = np.arange(10)   # 0 to 9\n",
+    "print(\"Array:\", arr)\n",
+    "\n",
+    "print(\"dtype:\", arr.dtype)\n",
+    "print(\"shape:\", arr.shape)\n",
+    "print(\"size:\", arr.size)\n",
+    "print(\"itemsize:\", arr.itemsize)\n",
+    "print(\"nbytes:\", arr.nbytes)\n",
+    "\n",
+    "# Comment:\n",
+    "# dtype is int32 (or int64 depending on system) because NumPy chooses the most memory-efficient integer type.\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "f879d492",
+   "metadata": {},
+   "source": [
+    "**Q4) Convert 1D → 2D Matrix (3×4) + Access element**"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "id": "48436616",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Matrix:\n",
+      " [[ 0  1  2  3]\n",
+      " [ 4  5  6  7]\n",
+      " [ 8  9 10 11]]\n",
+      "\n",
+      "Element at (2,1): 9\n"
+     ]
+    }
+   ],
+   "source": [
+    "\n",
+    "import numpy as np\n",
+    "\n",
+    "arr = np.arange(12)\n",
+    "matrix = arr.reshape(3, 4)\n",
+    "\n",
+    "print(\"Matrix:\\n\", matrix)\n",
+    "\n",
+    "# element at row 2, column 1\n",
+    "print(\"\\nElement at (2,1):\", matrix[2, 1])  # zero-indexed\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "dbc5553e",
+   "metadata": {},
+   "source": [
+    "**Q4 (Second Part) Extract rows and columns**"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 12,
+   "id": "b959ce23",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Second row: [4 5 6 7]\n",
+      "\n",
+      "First two columns:\n",
+      " [[0 1]\n",
+      " [4 5]\n",
+      " [8 9]]\n",
+      "\n",
+      "Every second column (step=2):\n",
+      " [[ 0  2]\n",
+      " [ 4  6]\n",
+      " [ 8 10]]\n"
+     ]
+    }
+   ],
+   "source": [
+    "\n",
+    "print(\"Second row:\", matrix[1])                 # row index 1\n",
+    "\n",
+    "print(\"\\nFirst two columns:\\n\", matrix[:, :2])  # all rows, col 0–1\n",
+    "\n",
+    "print(\"\\nEvery second column (step=2):\\n\", matrix[:, ::2])\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "5a422c82",
+   "metadata": {},
+   "source": [
+    "**Q5) Compute mean, median, variance, std**"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "79341e32",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Mean: 6.333333333333333\n",
+      "Median: 5.0\n",
+      "Variance: 12.555555555555555\n",
+      "Std Dev: 3.5433819375782165\n",
+      "Data is widely spread out.\n"
+     ]
+    }
+   ],
+   "source": [
+    "\n",
+    "import numpy as np\n",
+    "\n",
+    "arr = np.array([2, 4, 4, 6, 10, 12])\n",
+    "\n",
+    "print(\"Mean:\", np.mean(arr))\n",
+    "print(\"Median:\", np.median(arr))\n",
+    "print(\"Variance:\", np.var(arr))\n",
+    "print(\"Std Dev:\", np.std(arr))\n",
+    "\n",
+    "# Interpretation:\n",
+    "if np.std(arr) > 3:\n",
+    "    print(\"Data is widely spread out.\")\n",
+    "else:\n",
+    "    print(\"Data is closely packed (low variance).\")\n",
+    "    \n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "79b2feca",
+   "metadata": {},
+   "source": [
+    "**Q6) Matrix Inverse + verify A @ A_inv = Identity**"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "id": "1ed40e18",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "A:\n",
+      " [[2. 1.]\n",
+      " [5. 3.]]\n",
+      "\n",
+      "Inverse of A:\n",
+      " [[ 3. -1.]\n",
+      " [-5.  2.]]\n",
+      "\n",
+      "Product (A @ A_inv):\n",
+      " [[1.00000000e+00 2.22044605e-16]\n",
+      " [0.00000000e+00 1.00000000e+00]]\n"
+     ]
+    }
+   ],
+   "source": [
+    "\n",
+    "import numpy as np\n",
+    "\n",
+    "A = np.array([\n",
+    "    [2, 1],\n",
+    "    [5, 3]\n",
+    "], dtype=float)\n",
+    "\n",
+    "A_inv = np.linalg.inv(A)\n",
+    "product = A @ A_inv\n",
+    "\n",
+    "print(\"A:\\n\", A)\n",
+    "print(\"\\nInverse of A:\\n\", A_inv)\n",
+    "print(\"\\nProduct (A @ A_inv):\\n\", product)\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "ab1100df",
+   "metadata": {},
+   "source": [
+    "**Q7) 3D Arrays — sums on axes + transpose**"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 11,
+   "id": "3d895cc9",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "3D array:\n",
+      " [[[ 0  1  2  3]\n",
+      "  [ 4  5  6  7]\n",
+      "  [ 8  9 10 11]]\n",
+      "\n",
+      " [[12 13 14 15]\n",
+      "  [16 17 18 19]\n",
+      "  [20 21 22 23]]]\n",
+      "\n",
+      "Sum over axis=0:\n",
+      " [[12 14 16 18]\n",
+      " [20 22 24 26]\n",
+      " [28 30 32 34]]\n",
+      "\n",
+      "Sum over axis=1:\n",
+      " [[12 15 18 21]\n",
+      " [48 51 54 57]]\n",
+      "\n",
+      "New shape after transpose: (4, 2, 3)\n"
+     ]
+    }
+   ],
+   "source": [
+    "\n",
+    "import numpy as np\n",
+    "\n",
+    "arr3d = np.arange(2*3*4).reshape(2, 3, 4)\n",
+    "print(\"3D array:\\n\", arr3d)\n",
+    "\n",
+    "print(\"\\nSum over axis=0:\\n\", np.sum(arr3d, axis=0))  # depth\n",
+    "print(\"\\nSum over axis=1:\\n\", np.sum(arr3d, axis=1))  # rows\n",
+    "\n",
+    "# transpose to shape (4,2,3)\n",
+    "new_arr = np.transpose(arr3d, (2, 0, 1))\n",
+    "print(\"\\nNew shape after transpose:\", new_arr.shape)\n"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.14.0"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
