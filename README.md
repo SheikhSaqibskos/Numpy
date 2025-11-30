@@ -1,7 +1,11 @@
 Numpy Basics Assignment
+
 Al-Khair Institute of Technology
+
 Assignment no: 4 - Numpy_Basics
+
 Prepared By: Sheikh Saqib
+
 
 This repository contains the solution to the Numpy Basics Assignment, which covers a series of practical tasks designed to understand the fundamental concepts of NumPy and its application in Python. The assignment involves working with various NumPy array types, performing basic mathematical operations, and using advanced functions such as matrix inversion, axis-wise summation, and array reshaping.
 
